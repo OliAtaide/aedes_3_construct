@@ -23,7 +23,7 @@ runOnStartup(async runtime =>
 async function Start(runtime)
 {
 	let textos = runtime.objects.Textos.getAllInstances();
-	let botoes = runtime.objects.Botoes.getAllInstances();
+	let botoes = runtime.objects.Numeros.getAllInstances();
 	let campos = runtime.objects.Campo.getAllInstances();
 				
 	for(var i = 0; i < textos.length; i++){
