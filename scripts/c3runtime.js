@@ -3277,6 +3277,19 @@ e=>this._OnJobWorkerMessage(e)}catch(err){this._hadErrorCreatingWorker=true;this
 
 {
 self["C3_Shaders"] = {};
+self["C3_Shaders"]["replacecolor"] = {
+	glsl: "varying mediump vec2 vTex;\nuniform lowp sampler2D samplerFront;\nuniform lowp vec3 sourceColor;\nuniform lowp vec3 destColor;\nuniform lowp float tolerance;\nvoid main(void)\n{\nlowp vec4 front = texture2D(samplerFront, vTex);\nlowp float a = front.a;\nif (a != 0.0)\nfront.rgb /= a;\nlowp float diff = length(front.rgb - sourceColor);\nif (diff <= tolerance)\n{\nfront.rgb = mix(front.rgb, destColor, 1.0 - diff / tolerance);\n}\nfront.rgb *= a;\ngl_FragColor = front;\n}",
+	wgsl: "%%SAMPLERFRONT_BINDING%% var samplerFront : sampler;\n%%TEXTUREFRONT_BINDING%% var textureFront : texture_2d<f32>;\nstruct ShaderParams {\nsourceColor : vec3<f32>;\ndestColor : vec3<f32>;\ntolerance : f32;\n};\n%%SHADERPARAMS_BINDING%% var<uniform> shaderParams : ShaderParams;\n%%C3_UTILITY_FUNCTIONS%%\n%%FRAGMENTINPUT_STRUCT%%\n%%FRAGMENTOUTPUT_STRUCT%%\n@stage(fragment)\nfn main(input : FragmentInput) -> FragmentOutput\n{\nvar front : vec4<f32> = c3_unpremultiply(textureSample(textureFront, samplerFront, input.fragUV));\nvar rgb : vec3<f32> = front.rgb;\nvar diff : f32 = length(rgb - shaderParams.sourceColor);\nif (diff <= shaderParams.tolerance)\n{\nrgb = mix(rgb, shaderParams.destColor, 1.0 - diff / shaderParams.tolerance);\n}\nvar output : FragmentOutput;\noutput.color = vec4<f32>(rgb * front.a, front.a);\nreturn output;\n}",
+	blendsBackground: false,
+	usesDepth: false,
+	extendBoxHorizontal: 0,
+	extendBoxVertical: 0,
+	crossSampling: false,
+	mustPreDraw: false,
+	preservesOpaqueness: true,
+	animated: false,
+	parameters: [["sourceColor",0,"color"],["destColor",0,"color"],["tolerance",0,"percent"]]
+};
 
 }
 
@@ -3608,6 +3621,24 @@ map.get(this)._SetTooltip(str)}get tooltip(){return map.get(this)._GetTooltip()}
 }
 
 {
+'use strict';{const C3=self.C3;const DOM_COMPONENT_ID="text-input";C3.Plugins.TextBox=class TextInputPlugin extends C3.SDKDOMPluginBase{constructor(opts){super(opts,DOM_COMPONENT_ID);this.AddElementMessageHandler("click",(sdkInst,e)=>sdkInst._OnClick(e));this.AddElementMessageHandler("dblclick",(sdkInst,e)=>sdkInst._OnDoubleClick(e));this.AddElementMessageHandler("change",(sdkInst,e)=>sdkInst._OnChange(e))}Release(){super.Release()}}}{const C3=self.C3;C3.Plugins.TextBox.Type=class TextInputType extends C3.SDKTypeBase{constructor(objectClass){super(objectClass)}Release(){super.Release()}OnCreate(){}}}
+{const C3=self.C3;const C3X=self.C3X;const TEXT=0;const PLACEHOLDER=1;const TOOLTIP=2;const INITIALLY_VISIBLE=3;const ENABLE=4;const READ_ONLY=5;const SPELL_CHECK=6;const TYPE=7;const AUTO_FONT_SIZE=8;const ID=9;const CLASS_NAME=10;const DOM_COMPONENT_ID="text-input";const elemTypes=["text","password","email","number","tel","url","textarea","search"];C3.Plugins.TextBox.Instance=class TextInputInstance extends C3.SDKDOMInstanceBase{constructor(inst,properties){super(inst,DOM_COMPONENT_ID);this._text=
+"";this._placeholder="";this._title="";this._isEnabled=true;this._isReadOnly=false;this._spellCheck=false;this._type="text";this._autoFontSize=true;this._maxLength=-1;this._id="";this._className="";if(properties){this._text=properties[TEXT];this._placeholder=properties[PLACEHOLDER];this._title=properties[TOOLTIP];this.GetWorldInfo().SetVisible(properties[INITIALLY_VISIBLE]);this._isEnabled=properties[ENABLE];this._isReadOnly=properties[READ_ONLY];this._spellCheck=properties[SPELL_CHECK];this._type=
+elemTypes[properties[TYPE]];this._autoFontSize=properties[AUTO_FONT_SIZE];this._id=properties[ID];this._className=properties[CLASS_NAME]}this.CreateElement({"type":this._type,"id":this._id,"className":this._className})}Release(){super.Release()}GetElementState(){return{"text":this._text,"placeholder":this._placeholder,"title":this._title,"isEnabled":this._isEnabled,"isReadOnly":this._isReadOnly,"spellCheck":this._spellCheck,"maxLength":this._maxLength}}async _OnClick(e){this.DispatchScriptEvent("click",
+true);await this.TriggerAsync(C3.Plugins.TextBox.Cnds.OnClicked)}async _OnDoubleClick(e){this.DispatchScriptEvent("dblclick",true);await this.TriggerAsync(C3.Plugins.TextBox.Cnds.OnDoubleClicked)}async _OnChange(e){this._text=e["text"];this.DispatchScriptEvent("change",true);await this.TriggerAsync(C3.Plugins.TextBox.Cnds.OnTextChanged)}_SetText(text){if(this._text===text)return;this._text=text;this.UpdateElementState()}_GetText(){return this._text}_SetPlaceholder(placeholder){if(this._placeholder===
+placeholder)return;this._placeholder=placeholder;this.UpdateElementState()}_GetPlaceholder(){return this._placeholder}_SetTooltip(title){if(this._title===title)return;this._title=title;this.UpdateElementState()}_GetTooltip(){return this._title}_SetEnabled(e){e=!!e;if(this._isEnabled===e)return;this._isEnabled=e;this.UpdateElementState()}_IsEnabled(){return this._isEnabled}_SetReadOnly(r){r=!!r;if(this._isReadOnly===r)return;this._isReadOnly=r;this.UpdateElementState()}_IsReadOnly(){return this._isReadOnly}_SetMaxLength(l){l=
+Math.max(+l,-1);if(this._maxLength===l)return;this._maxLength=l;this.UpdateElementState()}_GetMaxLength(){return this._maxLength}_ScrollToBottom(){Promise.resolve().then(()=>this.PostToDOMElement("scroll-to-bottom"))}Draw(renderer){}SaveToJson(){return{"t":this._text,"p":this._placeholder,"ti":this._title,"e":this._isEnabled,"r":this._isReadOnly,"sp":this._spellCheck,"ml":this._maxLength,"type":this._type,"id":this._id}}LoadFromJson(o){this._text=o["t"];this._placeholder=o["p"];this._title=o["ti"];
+this._isEnabled=o["e"];this._isReadOnly=o["r"];this._spellCheck=o["sp"];this._maxLength=o.hasOwnProperty("ml")?o["ml"]:-1;this._type=o["type"];this._id=o["id"];this.UpdateElementState()}GetPropertyValueByIndex(index){switch(index){case TEXT:return this._text;case PLACEHOLDER:return this._placeholder;case TOOLTIP:return this._title;case ENABLE:return this._isEnabled;case READ_ONLY:return this._isReadOnly;case SPELL_CHECK:return this._spellCheck;case AUTO_FONT_SIZE:return this._autoFontSize}}SetPropertyValueByIndex(index,
+value){switch(index){case TEXT:if(this._text===value)return;this._text=value;this.UpdateElementState();break;case PLACEHOLDER:if(this._placeholder===value)return;this._placeholder=value;this.UpdateElementState();break;case TOOLTIP:if(this._title===value)return;this._title=value;this.UpdateElementState();break;case ENABLE:if(this._isEnabled===!!value)return;this._isEnabled=!!value;this.UpdateElementState();break;case READ_ONLY:if(this._isReadOnly===!!value)return;this._isReadOnly=!!value;this.UpdateElementState();
+break;case SPELL_CHECK:if(this._spellCheck===!!value)return;this._spellCheck=!!value;this.UpdateElementState();break;case AUTO_FONT_SIZE:this._autoFontSize=!!value;break}}GetDebuggerProperties(){const Acts=C3.Plugins.TextBox.Acts;const prefix="plugins.textbox";return[{title:prefix+".name",properties:[{name:prefix+".properties.text.name",value:this._text,onedit:v=>this.CallAction(Acts.SetText,v)},{name:prefix+".properties.enabled.name",value:this._isEnabled,onedit:v=>this.CallAction(Acts.SetEnabled,
+v)},{name:prefix+".properties.read-only.name",value:this._isReadOnly,onedit:v=>this.CallAction(Acts.SetReadOnly,v)}]}]}GetScriptInterfaceClass(){return self.ITextInputInstance}};const map=new WeakMap;self.ITextInputInstance=class ITextInputInstance extends self.IDOMInstance{constructor(){super();map.set(this,self.IInstance._GetInitInst().GetSdkInstance())}set text(str){C3X.RequireString(str);map.get(this)._SetText(str)}get text(){return map.get(this)._GetText()}set placeholder(str){C3X.RequireString(str);
+map.get(this)._SetPlaceholder(str)}get placeholder(){return map.get(this)._GetPlaceholder()}set tooltip(str){C3X.RequireString(str);map.get(this)._SetTooltip(str)}get tooltip(){return map.get(this)._GetTooltip()}set isEnabled(e){map.get(this)._SetEnabled(e)}get isEnabled(){return map.get(this)._IsEnabled()}set isReadOnly(r){map.get(this)._SetReadOnly(r)}get isReadOnly(){return map.get(this)._IsReadOnly()}set maxLength(l){C3X.RequireFiniteNumber(l);map.get(this)._SetMaxLength(l)}get maxLength(){return map.get(this)._GetMaxLength()}scrollToBottom(){map.get(this)._ScrollToBottom()}}}
+{const C3=self.C3;C3.Plugins.TextBox.Cnds={CompareText(text,case_){if(case_===0)return C3.equalsNoCase(this._text,text);else return this._text===text},OnTextChanged(){return true},OnClicked(){return true},OnDoubleClicked(){return true}}}
+{const C3=self.C3;C3.Plugins.TextBox.Acts={SetText(param){this._SetText(param.toString())},AppendText(param){if(param==="")return;this._SetText(this._GetText()+param)},SetPlaceholder(placeholder){this._SetPlaceholder(placeholder)},SetTooltip(title){this._SetTooltip(title)},SetReadOnly(r){this._SetReadOnly(r===0)},ScrollToBottom(){this._ScrollToBottom()},SetMaxLength(l){this._SetMaxLength(l)}}}{const C3=self.C3;C3.Plugins.TextBox.Exps={Text(){return this._GetText()},MaxLength(){return this._GetMaxLength()}}};
+
+}
+
+{
 'use strict';{const C3=self.C3;C3.Behaviors.DragnDrop=class DragnDropBehavior extends C3.SDKBehaviorBase{constructor(opts){super(opts);const rt=this._runtime.Dispatcher();this._disposables=new C3.CompositeDisposable(C3.Disposable.From(rt,"pointerdown",e=>this._OnPointerDown(e.data)),C3.Disposable.From(rt,"pointermove",e=>this._OnPointerMove(e.data)),C3.Disposable.From(rt,"pointerup",e=>this._OnPointerUp(e.data,false)),C3.Disposable.From(rt,"pointercancel",e=>this._OnPointerUp(e.data,true)))}Release(){this._disposables.Release();
 this._disposables=null;super.Release()}_OnPointerDown(e){if(e["pointerType"]==="mouse"&&e["button"]!==0)return;this._OnInputDown(e["pointerId"].toString(),e["pageX"]-this._runtime.GetCanvasClientX(),e["pageY"]-this._runtime.GetCanvasClientY())}_OnPointerMove(e){if((e["lastButtons"]&1)!==0&&(e["buttons"]&1)===0)this._OnInputUp(e["pointerId"].toString());else this._OnInputMove(e["pointerId"].toString(),e["pageX"]-this._runtime.GetCanvasClientX(),e["pageY"]-this._runtime.GetCanvasClientY())}_OnPointerUp(e,
 isCancel){if(e["pointerType"]==="mouse"&&e["button"]!==0)return;this._OnInputUp(e["pointerId"].toString())}async _OnInputDown(src,clientX,clientY){const myInstances=this.GetInstances();let topMost=null;let topBehInst=null;let topX=0;let topY=0;for(const inst of myInstances){const behInst=inst.GetBehaviorSdkInstanceFromCtor(C3.Behaviors.DragnDrop);if(!behInst.IsEnabled()||behInst.IsDragging()||inst.IsDestroyed())continue;const wi=inst.GetWorldInfo();const layer=wi.GetLayer();const [lx,ly]=layer.CanvasCssToLayer(clientX,
@@ -3632,6 +3663,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.SVGPicture,
 		C3.Plugins.Text,
 		C3.Plugins.Button,
+		C3.Plugins.TextBox,
 		C3.Behaviors.DragnDrop,
 		C3.Plugins.Mouse.Cnds.OnObjectClicked,
 		C3.Plugins.Sprite.Cnds.IsBoolInstanceVarSet,
@@ -3651,10 +3683,10 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Button.Cnds.OnClicked,
 		C3.Plugins.Button.Acts.SetVisible,
 		C3.Plugins.Button.Acts.SetEnabled,
-		C3.Plugins.Sprite.Acts.SetDefaultColor,
+		C3.Plugins.Sprite.Acts.SetEffectParam,
 		C3.Plugins.System.Cnds.OnLayoutStart,
 		C3.Plugins.Button.Acts.SetCSSStyle,
-		C3.Plugins.System.Acts.RestartLayout
+		C3.ScriptsInEvents.FolhaDeEventos1_Event15_Act6
 	];
 };
 self.C3_JsPropNameTable = [
@@ -3729,6 +3761,11 @@ self.C3_JsPropNameTable = [
 	{RespostasTexto: 0},
 	{BotaoVerificar: 0},
 	{BotaoTentarNovamente: 0},
+	{EntradaDeTexto: 0},
+	{Texto: 0},
+	{Texto2: 0},
+	{Texto3: 0},
+	{Texto4: 0},
 	{Numeros: 0},
 	{ArrastarSoltar: 0},
 	{Textos: 0},
@@ -3866,8 +3903,10 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => n0.ExpInstVar();
 		},
-		() => -180067007873023,
-		() => -360101047844863,
+		() => "SubstituirCor",
+		() => 1,
+		() => 56390,
+		() => 18140,
 		() => "border",
 		() => "3px solid #FFEDB5",
 		() => "background-color",
@@ -3881,7 +3920,10 @@ self.C3_ExpressionFuncs = [
 		() => "color",
 		() => "white",
 		() => "white-space",
-		() => "normal"
+		() => "normal",
+		() => "cursor",
+		() => "pointer",
+		() => 14474460
 ];
 
 

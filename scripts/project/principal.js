@@ -17,14 +17,19 @@ function shuffle(array) {
 
 runOnStartup(async runtime =>
 {
+
 	runtime.addEventListener("beforeprojectstart", () => Start(runtime));
+	
 });
 
 async function Start(runtime)
 {
+	
 	let textos = runtime.objects.Textos.getAllInstances();
 	let botoes = runtime.objects.Numeros.getAllInstances();
 	let campos = runtime.objects.Campo.getAllInstances();
+	
+	console.log(textos, botoes, campos);
 				
 	for(var i = 0; i < textos.length; i++){
 		campos[i].instVars.resposta = valores[i];
@@ -38,6 +43,33 @@ async function Start(runtime)
 	}
 	
 	runtime.addEventListener("tick", () => Tick(runtime));
+	
+	// runtime.objects.BotaoTentarNovamente.addEventListener("click", () => Reset(runtime));
+	
+	// runtime.objects.BotaoVerificar.addEventListener("pointerdown", () => Reset(runtime));
+}
+
+function Reset(runtime){
+	//for(var i = 0; i< campos.length; i++){
+	//	if(campos[i].instVars.valor != campos[i])
+	//}
+	
+	let textos = runtime.objects.Textos.getAllInstances();
+	let botoes = runtime.objects.Numeros.getAllInstances();
+	let campos = runtime.objects.Campo.getAllInstances();
+	
+	console.log('works');
+	
+	campos.forEach(function(campo){
+		if(campo.instVars.valor != campo.instVars.resposta){
+			textos.foreach(function(texto){
+				console.log(campo.instVars.valor, texto.instVars.valor);
+				if(texto.instVars.valor == campo.instVars.valor){
+					texto.moveToPosition(-200, -400, true);
+				}
+			})
+		}
+	})
 }
 
 function Tick(runtime)
@@ -45,4 +77,6 @@ function Tick(runtime)
 	var r = runtime.objects.RespostasTexto.getFirstInstance();
 	var v = runtime.globalVars.Respostas.toString();
 	r.text = v;
+	
+	
 }

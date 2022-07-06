@@ -37,3 +37,48 @@ html, body, canvas {
 }
 
 
+@font-face {
+	font-family: 'inter-extrabold';
+	src: url('fonts/inter-extrabold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'inter-extralight';
+	src: url('fonts/inter-extralight.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'inter-light';
+	src: url('fonts/inter-light.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'inter-medium';
+	src: url('fonts/inter-medium.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'inter-bold';
+	src: url('fonts/inter-bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'inter-regular';
+	src: url('fonts/inter-regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'inter-black';
+	src: url('fonts/inter-black.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'inter-thin';
+	src: url('fonts/inter-thin.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'inter-semibold';
+	src: url('fonts/inter-semibold.ttf') format('truetype');
+}
+
