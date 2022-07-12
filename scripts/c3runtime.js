@@ -3670,7 +3670,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Cnds.IsOverlapping,
 		C3.Plugins.Sprite.Acts.SetPosToObject,
 		C3.Plugins.Sprite.Cnds.CompareInstanceVar,
-		C3.Plugins.Sprite.Acts.SetPos,
 		C3.Behaviors.DragnDrop.Cnds.OnDrop,
 		C3.Plugins.Sprite.Acts.SetInstanceVar,
 		C3.Plugins.System.Acts.SetVar,
@@ -3766,6 +3765,11 @@ self.C3_JsPropNameTable = [
 	{Texto2: 0},
 	{Texto3: 0},
 	{Texto4: 0},
+	{GrupoA: 0},
+	{GrupoB: 0},
+	{GrupoC: 0},
+	{GrupoD: 0},
+	{GrupoE: 0},
 	{Numeros: 0},
 	{ArrastarSoltar: 0},
 	{Textos: 0},
@@ -3878,8 +3882,6 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => n0.ExpInstVar_Family();
 		},
-		() => 380,
-		() => 750,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() + 1);
