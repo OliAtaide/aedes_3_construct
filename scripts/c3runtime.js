@@ -3744,7 +3744,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.SetEffectParam,
 		C3.Plugins.System.Cnds.OnLayoutStart,
 		C3.Plugins.Button.Acts.SetCSSStyle,
-		C3.ScriptsInEvents.FolhaDeEventos1_Event15_Act6
+		C3.ScriptsInEvents.FolhaDeEventos1_Event17_Act6
 	];
 };
 self.C3_JsPropNameTable = [
@@ -3968,6 +3968,8 @@ self.C3_ExpressionFuncs = [
 		() => 1,
 		() => 56390,
 		() => 18140,
+		() => "A1_2",
+		() => "A2_2",
 		() => "border",
 		() => "3px solid #FFEDB5",
 		() => "background-color",

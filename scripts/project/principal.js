@@ -42,7 +42,7 @@ async function Start(runtime)
 		botoes[i].instVars.valor = valores[i];
 	}
 	
-	runtime.addEventListener("tick", () => Tick(runtime));
+	// runtime.addEventListener("tick", () => Tick(runtime));
 	
 	// runtime.objects.BotaoTentarNovamente.addEventListener("click", () => Reset(runtime));
 	
@@ -57,8 +57,6 @@ function Reset(runtime){
 	let textos = runtime.objects.Textos.getAllInstances();
 	let botoes = runtime.objects.Numeros.getAllInstances();
 	let campos = runtime.objects.Campo.getAllInstances();
-	
-	console.log('works');
 	
 	campos.forEach(function(campo){
 		if(campo.instVars.valor != campo.instVars.resposta){
@@ -77,6 +75,4 @@ function Tick(runtime)
 	var r = runtime.objects.RespostasTexto.getFirstInstance();
 	var v = runtime.globalVars.Respostas.toString();
 	r.text = v;
-	
-	
 }
