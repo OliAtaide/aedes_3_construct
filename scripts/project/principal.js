@@ -41,19 +41,9 @@ async function Start(runtime)
 	for(var i = 0; i < botoes.length; i++){
 		botoes[i].instVars.valor = valores[i];
 	}
-	
-	// runtime.addEventListener("tick", () => Tick(runtime));
-	
-	// runtime.objects.BotaoTentarNovamente.addEventListener("click", () => Reset(runtime));
-	
-	// runtime.objects.BotaoVerificar.addEventListener("pointerdown", () => Reset(runtime));
 }
 
 function Reset(runtime){
-	//for(var i = 0; i< campos.length; i++){
-	//	if(campos[i].instVars.valor != campos[i])
-	//}
-	
 	let textos = runtime.objects.Textos.getAllInstances();
 	let botoes = runtime.objects.Numeros.getAllInstances();
 	let campos = runtime.objects.Campo.getAllInstances();
