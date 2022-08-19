@@ -3752,6 +3752,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.SetInstanceVar,
 		C3.Plugins.System.Acts.SetVar,
 		C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
+		C3.Plugins.Sprite.Acts.MoveToLayer,
 		C3.Plugins.Sprite.Acts.SetOpacity,
 		C3.Plugins.Mouse.Cnds.OnWheel,
 		C3.Plugins.System.Cnds.CompareVar,
@@ -3764,7 +3765,8 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.SetEffectParam,
 		C3.Plugins.System.Cnds.OnLayoutStart,
 		C3.Plugins.Button.Acts.SetCSSStyle,
-		C3.ScriptsInEvents.FolhaDeEventos1_Event17_Act6
+		C3.ScriptsInEvents.FolhaDeEventos1_Event17_Act6,
+		C3.Behaviors.DragnDrop.Cnds.OnDragStart
 	];
 };
 self.C3_JsPropNameTable = [
@@ -3850,6 +3852,7 @@ self.C3_JsPropNameTable = [
 	{GrupoD: 0},
 	{GrupoE: 0},
 	{Teclado: 0},
+	{AreadeRespostas: 0},
 	{Numeros: 0},
 	{ArrastarSoltar: 0},
 	{Textos: 0},
