@@ -3,13 +3,16 @@
 
 const scriptsInEvents = {
 
-		async FolhaDeEventos1_Event11_Act5(runtime, localVars)
+		async FolhaDeEventos1_Event11_Act3(runtime, localVars)
 		{
 			let textos = runtime.objects.Textos.getAllInstances();
 			let botoes = runtime.objects.Numeros.getAllInstances();
 			let campos = runtime.objects.Campo.getAllInstances();
 			
-			runtime.globalVars.Acertos = 0;
+			var acertos = runtime.globalVars.Acertos;
+			var botao;
+			
+			acertos = 0;
 			
 			for(var i = 0; i < campos.length; i++){
 				var campo = campos[i];
@@ -19,9 +22,20 @@ const scriptsInEvents = {
 				var a2_2 = valor == 'A2_2' && resposta == 'A1_2';
 				
 				if(valor == resposta || a1_2 || a2_2){
-					runtime.globalVars.Acertos++;
+					acertos++;
 				}
 			}
+			
+			if(acertos == 21){
+				botao = runtime.objects.BotaoRefazer.getFirstInstance();
+				console.log(botao);
+			}
+			else{
+				botao = runtime.objects.BotaoTentarNovamente.getFirstInstance();
+			}
+			
+			botao.isVisible = true;
+			botao.isEnabled = true;
 		},
 
 		async FolhaDeEventos1_Event17_Act6(runtime, localVars)
@@ -64,6 +78,11 @@ const scriptsInEvents = {
 			}
 			
 			acertos = 0;
+		},
+
+		async FolhaDeEventos1_Event21_Act1(runtime, localVars)
+		{
+			location.reload();
 		}
 
 };

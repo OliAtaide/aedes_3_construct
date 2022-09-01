@@ -3761,12 +3761,13 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Button.Cnds.OnClicked,
 		C3.Plugins.Button.Acts.SetVisible,
 		C3.Plugins.Button.Acts.SetEnabled,
-		C3.ScriptsInEvents.FolhaDeEventos1_Event11_Act5,
+		C3.ScriptsInEvents.FolhaDeEventos1_Event11_Act3,
 		C3.Plugins.Sprite.Acts.SetEffectParam,
 		C3.Plugins.System.Cnds.OnLayoutStart,
 		C3.Plugins.Button.Acts.SetCSSStyle,
 		C3.ScriptsInEvents.FolhaDeEventos1_Event17_Act6,
-		C3.Behaviors.DragnDrop.Cnds.OnDragStart
+		C3.Behaviors.DragnDrop.Cnds.OnDragStart,
+		C3.ScriptsInEvents.FolhaDeEventos1_Event21_Act1
 	];
 };
 self.C3_JsPropNameTable = [
@@ -3853,6 +3854,7 @@ self.C3_JsPropNameTable = [
 	{GrupoE: 0},
 	{Teclado: 0},
 	{AreadeRespostas: 0},
+	{BotaoRefazer: 0},
 	{Numeros: 0},
 	{ArrastarSoltar: 0},
 	{Textos: 0},

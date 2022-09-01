@@ -17,9 +17,9 @@ function shuffle(array) {
 
 runOnStartup(async runtime =>
 {
-
 	runtime.addEventListener("beforeprojectstart", () => Start(runtime));
 	
+//	runtime.addEventListener("tick", () => Tick(runtime));
 });
 
 async function Start(runtime)
